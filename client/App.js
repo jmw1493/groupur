@@ -30,40 +30,41 @@ class App extends Component {
       return e.json()
     })
     .then(data => {
-      console.log(data)
+      // console.log(data)
     })
   }
 
 
   // check wether there is cookie in the browser or not.
   // if not, render Login; if true, render UserMain
-  componentDidMount() { 
-    fetch('/verify', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-    })
-    .then((res) => {
-      // console.log(res)
-      if (res.status !== 200) {
-        return 
-      }
-      return res.json() // sessionController.verifyUser defines data's structure in its res.send(true)
-    })
-    .then((data) => { 
-      // console.log(data)
-      let tempState = this.state;
-      tempState.activeSession = data.status;
-      this.setState(tempState);
-    })
-    .catch(e => 
-      console.log(e))
-  }
+  // componentDidMount() { 
+  //   fetch('/verify', {
+  //       method: 'POST',
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json'
+  //       }
+  //   })
+  //   .then((res) => {
+  //     // console.log(res)
+  //     if (res.status !== 200) {
+  //       return 
+  //     }
+  //     return res.json() // sessionController.verifyUser defines data's structure in its res.send(true)
+  //   })
+  //   .then((data) => { 
+  //     // console.log(data)
+  //     let tempState = this.state;
+  //     tempState.activeSession = data.status;
+  //     this.setState(tempState);
+  //   })
+  //   .catch(e => 
+  //     // console.log(e))
+  // }
 
 
-  handleClick(event) {    
+  handleClick(event) {  
+    event.preventDefault();  
     const username = document.getElementById('user-input').value;
     const password = document.getElementById('password-input').value;
     console.log('username: ' + username + '...... password: ' + password)
@@ -88,10 +89,11 @@ class App extends Component {
       body: JSON.stringify({username: username, password: password})
     })
     .then((res) => {
+      console.log(res)
       if (res.status < 300 && res.status >= 200) return res.json();
     })
     .then((res) => {
-      console.log(res)
+      // console.log(res)
       if (res.message) return console.log(res.message);
       let currentState = Object.assign(this.state); 
       //  does not copy memory address but data

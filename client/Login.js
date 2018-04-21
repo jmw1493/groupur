@@ -3,7 +3,6 @@ import { render } from 'react-dom';
 
 // Presentation component function
 const Login = (props) => {
-
   return (
     <div id='sign'>
       <h2>Groupur</h2>
@@ -25,7 +24,7 @@ const Login = (props) => {
         </li>
       </ul>
     </div>
-  )
+  );
 }
 
 module.exports = Login

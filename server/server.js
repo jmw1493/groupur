@@ -20,19 +20,28 @@ mongoose.connect(mongoURI, () => {console.log('connected to database')});
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(cookieController.setCookie);
 
 app.use(express.static(__dirname + './../')); //serves the index.html
 app.listen(3000, () => { console.log('listening on port 3000') }); //listens on port 3000 -> http://localhost:3000/
 
 // when they hit the landing page, verify whether they have an active session, 
 // if so direct to myAccount. If not, keep them on the landing page to allow for manual log in or sign up
+
+app.get('/', (req, res) => {
+  console.log(res)
+  res.render('index');
+});
+
+// app.post('/', cookieController.setCookie);
+
 app.post('/verify', sessionController.verifySession);
 
 // if they hit the sign in button
-app.post('/signup', userController.signup, /* sessionController.getToken, */ cookieController.setSSIDCookie, sessionController.startSession);
+app.post('/signup', userController.signup, /* sessionController.getToken,*/  cookieController.setSSIDCookie, sessionController.startSession);
 
 // if they hit the login button
-app.post('/login', userController.verify, /*sessionController.getToken,*/ cookieController.setSSIDCookie, sessionController.startSession);
+app.post('/login', userController.verify, /*sessionController.getToken,*/ cookieController.setSSIDCookie,sessionController.startSession);
 
 app.post('/add-group', userController.addGroup);
 

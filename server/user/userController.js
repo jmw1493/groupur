@@ -10,7 +10,7 @@ const userController = {
         req.on('error', (err) => { console.log(err) });
       
         if (!req.body.username || !req.body.password) {
-            res.status(403).send('Invalid Input');
+          return res.status(403).send('Invalid Input');
         }
       
         let newUser = {
@@ -38,7 +38,7 @@ const userController = {
     verify: function (req, res, next) {
       req.on('error', (err) => { console.log(err) });
         if (!req.body.username || !req.body.password) {
-            res.status(403).send('Invalid Input');
+          return res.status(403).send('Invalid Input');
         }
       
       let loginUserRequest = {
@@ -69,7 +69,7 @@ const userController = {
     },
 
     addGroup: function (req, res) {
-      console.log(req.body)
+      // console.log(req.body)
       res.send(JSON.stringify(req.body)); 
 
       // let newGroup = new
