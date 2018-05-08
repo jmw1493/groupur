@@ -7,7 +7,7 @@ const userSchema = new Schema ({
     // firstName: {type: String, required: false},
     // lastName: {type: String, required: false},
     // groups: {type: Array, required:false}
-    groups: [{group_id: Number, group_name: String, amount: Number}]
+    groups: [{/*group_id: Number,*/ group_name: String, /*amount: Number*/}]
 });
 
 const SALT_WORK_FACTOR = 10;

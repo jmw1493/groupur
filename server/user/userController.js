@@ -6,7 +6,7 @@ const SALT_WORK_FACTOR = 10;
 // post that will contain username and password to create a new user or login 
 const userController = {
     
-    signup: function (req, res, next) {
+    signup: function (req, res) {
         req.on('error', (err) => { console.log(err) });
       
         if (!req.body.username || !req.body.password) {
@@ -28,37 +28,42 @@ const userController = {
         User.create(newUser, (err, createdUser) => {
           // if(err) console.log('errorrrrr' + err);
           if(createdUser) {
-            res.locals.user = createdUser;
-            return next();
+            // res.locals.user = createdUser;
+            res.send({
+              activeSession: true,
+              user: user
+            });
           }
           res.status(500).send('Username already in use'); //Need to handle when username already exists
         });
     },
 
-    verify: function (req, res, next) {
+    verify: function (req, res) {
       req.on('error', (err) => { console.log(err) });
         if (!req.body.username || !req.body.password) {
           return res.status(403).send('Invalid Input');
         }
       
       let loginUserRequest = {
-          username: req.body.username,
-          password: req.body.password
+        username: req.body.username,
+        password: req.body.password
       }
       console.log('about to find user in database')
       
-      User.findOne({username: loginUserRequest.username}, (err, doc) => {
-        if (err || !doc) return res.end();
-        if (!bcrypt.compareSync(loginUserRequest.password, doc.password)) {
+      User.findOne({username: loginUserRequest.username}, (err, user) => {
+        if (err || !user) return res.end();
+        if (!bcrypt.compareSync(loginUserRequest.password, user.password)) {
           console.log('password not found')
           return res.end();
         }
         console.log('password found')
-        res.locals.user = doc;
-        next();
+        // res.locals.user = user;
+        res.send({
+          activeSession: true,
+          user: user
+        });
       })
 
-      
         // User.checkPassword(loginUserRequest, (doc, valid) => {
         //   if(valid) {
         //     res.locals.user = doc;
@@ -69,18 +74,26 @@ const userController = {
     },
 
     addGroup: function (req, res) {
-      // console.log(req.body)
-      res.send(JSON.stringify(req.body)); 
-
-      // let newGroup = new
-      // User.findOneAndUpdate({username: req.body.username}, { $push: { groups: req.body }}, {new: true}, (err, group) => {
-      //   if (err) return res.sendStatus(400);
-      // })
-      
+      User.findOneAndUpdate({username: req.body.user}, { 
+        $push: {
+          groups: {
+            $each: [ { group_name: req.body.value } ]
+          }
+        }
+      }, {new: true}, (err, user) => {
+        if (err) return res.sendStatus(400);
+        res.send(user.groups[user.groups.length - 1]);
+      })
     },
 
     removeGroup: function (req, res) {
-      User.findOneAndUpdate({username: req.body.username}, { $pull: { groups: req.body._id }}, {new: true}, (err, group) => {
+      User.findOneAndUpdate({username: req.body.user}, { 
+        $pull: { 
+          groups: {
+            $in: [req.body.value]
+          }
+        }
+      }, {new: true}, (err, user) => {
         if (err) return res.sendStatus(400);
       })
     }

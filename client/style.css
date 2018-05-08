@@ -5,7 +5,7 @@
 }
 
 /* Login component style */
-#sign {
+#login {
   width: 30%;
   border-style: solid;
   border-width: 0.75px;
@@ -16,30 +16,8 @@
   margin-top: 15%;
 }
 
-#signInfo {
-  margin: 0; 
-  padding: 0; 
-  list-style-type: none; 
-}
-
-#signButtons {
-  margin: 0; 
-  padding: 0; 
-  list-style-type: none; 
-}
-
-#signInfo li {
- padding-bottom: 12px; 
-}
-
-#signButtons li {
-  display: inline;
-  padding-left:6px;
-  padding-right:6px;
-}
-
 /* UserMain component style */
-#userMain {
+#main-page {
   height:100%;
 }
 
@@ -52,18 +30,11 @@
   position: absolute; 
   margin:0px auto;
 }
-#headerList {
-  list-style-type: none;
-}
-
-#headerList li {
-  display: inline-block;
-}
 
 .main {
  display: flex;
 }
-.userMain {
+.user-main {
   float: left;
   flex: 1.4;
   /* width: 50%; */
@@ -74,7 +45,7 @@
   border-color: rgba(0, 0, 0, 0.089);
 }
 
-.groupsMain {
+.groups-main {
   float: right;
   flex: 1;
   /* width: 50%; */
@@ -83,14 +54,6 @@
   border-style: solid;
   border-width: 0.75px;
   border-color: rgba(0, 0, 0, 0.089);
-}
-
-#userGroupList, #groupsList {
-  list-style-type: none;
-} 
-
-#userGroupList li, #groupsList li {
-  overflow:hidden; overflow-y:scroll
 }
 
 .footer {

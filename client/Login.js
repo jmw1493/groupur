@@ -4,25 +4,17 @@ import { render } from 'react-dom';
 // Presentation component function
 const Login = (props) => {
   return (
-    <div id='sign'>
+    <div id='login'>
       <h2>Groupur</h2>
       <h3>Join other buyers for saving</h3>
-      <ul id='signInfo'>
-        <li><input className='inputBox' id='user-input' type='text' placeholder='Username'/></li>
-        <li><input className='inputBox' id='password-input' type='password' placeholder='Password'/></li>
-      </ul>
-      <ul id='signButtons'>
-        <li>
-          <button className='signBox' id='log-in' type='submit' onClick={props.handleClick}>
-            Log in
-          </button>
-        </li>
-        <li>
-          <button className='signBox' id='sign-in' type='submit' onClick={props.handleClick}>
-            Sign up
-          </button>
-        </li>
-      </ul>
+      <input className='input' id='username' type='text' placeholder='Username'/>
+      <input className='input' id='pwd' type='password' placeholder='Password'/>
+      <button className='login-button' id='log-in' type='submit' onClick={props.handleClick}>
+        Log in
+      </button>
+      <button className='login-button' id='sign-in' type='submit' onClick={props.handleClick}>
+        Sign up
+      </button> 
     </div>
   );
 }

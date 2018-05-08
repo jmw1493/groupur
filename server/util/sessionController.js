@@ -2,8 +2,10 @@ const Session = require('./sessionModel');
 
 const sessionController = {};
 
-sessionController.verifySession = (req, res) => {
+sessionController.verifySession = (req, res, next) => {
+  console.log('req.cookies below')
   console.log(req.cookies)
+  console.log('req.cookies above')
   Session.findOne({cookieId: req.cookies}, (err, result) => {
     if(err || !result){
       return res.send({
