@@ -23,18 +23,14 @@ const userController = {
 
         User.findOne({username: newUser.username}, (err, doc) => {
           if(doc) return res.send({message: 'User already exists'}); 
-        });
-        
-        User.create(newUser, (err, createdUser) => {
-          // if(err) console.log('errorrrrr' + err);
-          if(createdUser) {
-            // res.locals.user = createdUser;
-            res.send({
-              activeSession: true,
-              user: user
-            });
-          }
-          res.status(500).send('Username already in use'); //Need to handle when username already exists
+          User.create(newUser, (err, createdUser) => {
+            if(createdUser) {
+              res.send({
+                activeSession: true,
+                user: createdUser
+              });
+            }
+          });
         });
     },
 

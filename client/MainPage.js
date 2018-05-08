@@ -18,8 +18,8 @@ const MainPage = (props) => {
     <div id='main-page'>
       <div className='header'>
         <h3> Groupur </h3>
-        <a className='icon' href='/profile'><img src='client/icons/profile.png'/></a>
-        <a className='icon' href='/'><img src='client/icons/logout.png'/></a>
+        {/* <a className='icon' href='/profile'><img src='client/icons/profile.png'/></a>
+        <a className='icon' href='/'><img src='client/icons/logout.png'/></a> */}
       </div>
 
       <div className='main'>
